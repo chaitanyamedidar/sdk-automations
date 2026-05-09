@@ -97,7 +97,8 @@ The diagram should communicate that V2 centralizes policy and auditability while
 
 
 ## 6. Existing Workflow Migration Visual Prompt
-<img width="2816" height="1536" alt="7" src="https://github.com/user-attachments/assets/524e0363-70dd-429b-9a78-fe23f62c38a6" />
+<img width="2048" height="1143" alt="release workflows" src="https://github.com/user-attachments/assets/4a6c0c36-36d6-4f45-8e4f-b23ffe9caf47" />
+
 
 
 Caption: The diagram should make clear that V2 extracts and standardizes existing Hiero workflow behavior before introducing reusable modules.
