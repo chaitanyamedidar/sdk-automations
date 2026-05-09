@@ -8,7 +8,6 @@ The goal is not to replace current Python or C++ SDK workflows immediately. Inst
 
 This local prototype is dependency-free CommonJS so it can run with only Node's built-in test runner. The production implementation target remains a TypeScript GitHub App using the same boundaries: config, events, modules, safety, audit, and outputs.
 
-## What This Proves
 
 | Claim | Prototype Evidence |
 |---|---|
@@ -32,7 +31,7 @@ Implemented:
 - Tests for core edge cases, including stale webhook payload handling.
 - Documentation for migration, security, onboarding, and contributor workflow.
 
-Not implemented yet:
+Yet to be implemented:
 
 - Real GitHub App webhook server.
 - Real GitHub API writes.
@@ -134,7 +133,7 @@ This prints one dry-run assignment decision and its audit entry.
 }
 ```
 
-## Why Start With Assignment
+## Why was Assignment the first abstraction target?
 
 Assignment is a good migration candidate because it is already present in the Python and C++ SDK automation systems, it affects contributor onboarding, and it has meaningful edge cases around labels, assignees, contributor state, current issue state, and maintainer trust.
 
