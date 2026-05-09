@@ -1,4 +1,6 @@
 
+Files to look for: [`research.md`](./Research.md) , [`Technical_Proposal.md`](./Technical_Proposal.md)
+
 # Hiero Workflow V2 Migration Prototype
 
 This prototype demonstrates a low-risk migration path from existing Hiero SDK automation toward a reusable V2 maintainer and contributor workflow system.
