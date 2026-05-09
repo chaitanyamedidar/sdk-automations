@@ -88,7 +88,6 @@ GitHub webhook event
 | GitHub App | safe write authorization |
 | GitHub App | future dashboard/reporting data |
 
-## 5. Overall Architecture Visual Prompt
 <img width="2048" height="1143" alt="1" src="https://github.com/user-attachments/assets/918cfcd7-4340-4cec-bab2-8ebe5badde62" />
 
 
@@ -96,7 +95,7 @@ GitHub webhook event
 The diagram should communicate that V2 centralizes policy and auditability while preserving GitHub Actions as the repo-local execution layer.
 
 
-## 6. Existing Workflow Migration Visual Prompt
+## 6. Existing Workflow Migration 
 <img width="2048" height="1143" alt="release workflows" src="https://github.com/user-attachments/assets/4a6c0c36-36d6-4f45-8e4f-b23ffe9caf47" />
 
 
@@ -121,7 +120,7 @@ Receives GitHub events from installed repositories.
 | `workflow_run.completed` | CI result and PR quality summary |
 | scheduled checks | inactivity, stale assignment, and periodic sync |
 
-| Webhook Receiver Responsibility | Why It Matters |
+| Webhook Receiver Responsibility | Importance |
 |---|---|
 | verify webhook signature | prevents spoofed GitHub events |
 | identify repository and installation | loads the correct repo-specific config |
@@ -149,7 +148,7 @@ Example normalized event:
 }
 ```
 
-Why it matters:
+Importance:
 
 - prevents each module from parsing raw GitHub payloads differently
 - allows Python and C++ patterns to map into one module contract
@@ -456,7 +455,7 @@ hiero-workflow-app/
 
 This structure supports both contributor-facing workflows, such as onboarding and assignment, and maintainer-facing workflows, such as review queue status, stale handling, and post-merge progression evidence.
 
-## 9. Component Breakdown Visual Prompt
+## 9. Component Breakdown 
 
 <img width="2048" height="1143" alt="2" src="https://github.com/user-attachments/assets/0a0b5bd2-bef8-4f1b-a1f4-d59f0ce9f304" />
 
@@ -483,7 +482,7 @@ The first working application should focus on assignment and contributor onboard
 | `requires_maintainer_review` | high difficulty or unclear state | maintainer-facing report |
 | `no_action` | config absent or module disabled | workflow log only |
 
-## 11. End-To-End Flow Visual Prompt
+## 11. End-To-End Flow 
 
 <img width="2048" height="1143" alt="5" src="https://github.com/user-attachments/assets/cd9abbe8-a1c2-4021-930a-7bfbaadc36e0" />
 
@@ -527,7 +526,7 @@ I would not roll V2 out uniformly to every repository. Each repository should ad
 - Maintainers can override by manual GitHub action.
 - Existing workflows remain active until V2 proves equivalent or better.
 
-## 14. Multi-Repository Scaling Visual Prompt
+## 14. Multi-Repository Scaling 
 
 <img width="2048" height="1143" alt="4" src="https://github.com/user-attachments/assets/acf85340-a895-4cd1-aa0b-15e9d2a0c7f6" />
 
