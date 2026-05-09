@@ -1,0 +1,74 @@
+assignment:
+  enabled: true
+  mode: dry-run
+  trigger: "/assign"
+  required_status_label: "status: ready for dev"
+  in_progress_label: "status: in progress"
+  allowed_labels:
+    - "skill: good first issue"
+    - "skill: beginner"
+    - "skill: intermediate"
+    - "skill: advanced"
+  blocked_labels:
+    - "status: blocked"
+    - "status: in progress"
+    - "status: needs maintainer input"
+  max_active_assignments: 2
+  require_unassigned_issue: true
+  human_check:
+    enabled: true
+    strategy: github_user_type_and_spam_list
+    spam_list_path: ".github/spam-list.txt"
+    restricted_max_active_assignments: 1
+    restricted_allowed_labels:
+      - "skill: good first issue"
+  progression:
+    enabled: true
+    skill_hierarchy:
+      - "skill: good first issue"
+      - "skill: beginner"
+      - "skill: intermediate"
+      - "skill: advanced"
+    prerequisites:
+      "skill: good first issue":
+        required_label: null
+        required_count: 0
+      "skill: beginner":
+        required_label: "skill: good first issue"
+        required_count: 2
+      "skill: intermediate":
+        required_label: "skill: beginner"
+        required_count: 3
+      "skill: advanced":
+        required_label: "skill: intermediate"
+        required_count: 3
+  require_human_review_for:
+    - "skill: advanced"
+  post_assignment_hooks:
+    welcome_comment: true
+    mentor_assignment: false
+    ai_planner: false
+
+pr_quality:
+  enabled: true
+  mode: dry-run
+  checks:
+    linked_issue: true
+    dco: true
+    gpg: true
+    merge_conflict: true
+  output:
+    style: unified-updatable-comment
+
+stale_management:
+  enabled: true
+  mode: dry-run
+  warning_days: 5
+  close_days: 7
+  exempt_labels:
+    - "status: blocked"
+
+audit:
+  enabled: true
+  include_config_rule: true
+  include_source_event: true

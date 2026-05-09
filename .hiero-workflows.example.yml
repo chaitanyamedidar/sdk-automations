@@ -1,0 +1,22 @@
+assignment:
+  enabled: true
+  mode: dry-run
+  trigger: "/assign"
+  required_status_label: "status: ready for dev"
+  allowed_labels:
+    - "good first issue"
+    - "skill: beginner"
+  blocked_labels:
+    - "status: blocked"
+    - "status: in progress"
+  max_active_assignments: 1
+  require_unassigned_issue: true
+  post_assignment_hooks:
+    welcome_comment: true
+    mentor_assignment: false
+    ai_planner: false
+
+audit:
+  enabled: true
+  include_config_rule: true
+  include_source_event: true

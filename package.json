@@ -1,0 +1,14 @@
+{
+  "name": "hiero-workflow-v2-migration-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Dry-run prototype for migrating Hiero SDK workflow automation into reusable V2 modules.",
+  "type": "commonjs",
+  "scripts": {
+    "demo": "node scripts/demo-assignment.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

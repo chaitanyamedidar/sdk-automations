@@ -1,0 +1,76 @@
+assignment:
+  enabled: true
+  mode: dry-run
+  trigger: "/assign"
+  required_status_label: null
+  in_progress_label: "status: in progress"
+  allowed_labels:
+    - "Good First Issue"
+    - "skill: beginner"
+    - "skill: intermediate"
+  blocked_labels:
+    - "status: blocked"
+    - "status: in progress"
+  max_active_assignments: 1
+  require_unassigned_issue: true
+  human_check:
+    enabled: true
+    strategy: github_user_type_and_spam_list
+    spam_list_path: ".github/spam-list.txt"
+    restricted_max_active_assignments: 1
+    restricted_allowed_labels:
+      - "Good First Issue"
+  progression:
+    enabled: true
+    skill_hierarchy:
+      - "Good First Issue"
+      - "skill: beginner"
+      - "skill: intermediate"
+      - "skill: advanced"
+    prerequisites:
+      "Good First Issue":
+        required_label: null
+        required_count: 0
+      "skill: beginner":
+        required_label: "Good First Issue"
+        required_count: 1
+      "skill: intermediate":
+        required_label: "skill: beginner"
+        required_count: 1
+      "skill: advanced":
+        required_label: "skill: intermediate"
+        required_count: 1
+  require_human_review_for:
+    - "skill: intermediate"
+  post_assignment_hooks:
+    welcome_comment: true
+    mentor_assignment: true
+    ai_planner: false
+
+pr_quality:
+  enabled: true
+  mode: dry-run
+  checks:
+    linked_issue: true
+    codecov: true
+    codeql: true
+    broken_links: true
+    test_file_naming: true
+    tck_tests: true
+    unit_integration_tests: true
+  output:
+    style: updatable-comment
+    marker: "<!-- workflow-failure-bot -->"
+
+stale_management:
+  enabled: true
+  mode: dry-run
+  issue_days_without_pr: 21
+  pr_days_without_commit: 21
+  activity_commands:
+    - "/working"
+
+audit:
+  enabled: true
+  include_config_rule: true
+  include_source_event: true

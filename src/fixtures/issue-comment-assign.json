@@ -1,0 +1,12 @@
+{
+  "name": "issue_comment.created",
+  "comment": {
+    "body": "/assign"
+  },
+  "repository": {
+    "full_name": "hiero-ledger/hiero-sdk-python"
+  },
+  "sender": {
+    "login": "new-contributor"
+  }
+}
