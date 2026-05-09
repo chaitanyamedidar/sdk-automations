@@ -92,14 +92,3 @@ I did a research to understand how Hiero currently handles contributor and maint
 | Tier 3 | `hiero-consensus-node`, `hiero-block-node`, `hiero-json-rpc-relay`, `hiero-mirror-node`, `solo` | CI-heavy repositories need read-only summaries and careful permissions |
 | Tier 4 | docs, governance, collaboration repos | Lower-risk candidates for triage and stale reminders |
 
-## 9. Proposal Implication
-
-The strongest proposal is not "I will build a GitHub App." Other applicants can say that too.
-
-The stronger framing is:
-
-```text
-I will build a migration-oriented GitHub Workflow App that extracts existing Hiero SDK workflow behavior into reusable, configurable modules. Python provides the workflow catalogue. C++ provides the structural baseline. The app centralizes policy, config, safety, and auditability, while GitHub Actions remain the repo-local execution layer.
-```
-
-This framing is more specific to Hiero, reflects mentor guidance, and shows that the design is grounded in current code and recent workflow activity.
