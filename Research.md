@@ -1,9 +1,5 @@
 # Research Notes - Hiero GitHub Workflow App
 
-## 1. Research Goal
-
-I did a research to understand how Hiero currently handles contributor and maintainer workflows before proposing a reusable GitHub Workflow App. The project should not start by inventing new features. It should first understand the existing Python and C++ SDK workflows, preserve useful behavior, and evolve that behavior into a safer, more reusable, more configurable system.
-
 ## 2. Sources Reviewed
 
 | Source | What Was Reviewed | Importance |
@@ -11,8 +7,124 @@ I did a research to understand how Hiero currently handles contributor and maint
 | `hiero-sdk-python` workflows | Assignment bots, review-sync, triage review, inactivity, planner hooks, CI workflows | Python has broad real-world workflow coverage |
 | `hiero-sdk-cpp` workflows | Comment dispatcher, helper modules, bot tests, workflow linting, post-merge automation | C++ has cleaner workflow structure |
 | `hiero-ledger` org workflow inventory | Workflow files across selected repositories | Shows scaling targets and repository tiers |
-| Python workflow PRs and issues | `#2229`, `#2242`, `#2254`, `#2262`, `#2247`, `#2261`, `#2250`, `#2197` | Shows current community direction |
-| Maintainer Discord guidance | Start small, abstract existing SDK workflows, use GitHub Actions for execution and GitHub App for orchestration/policy | Defines proposal constraints |
+| Python workflow PRs and issues | `#2229`, `#2242`, `#2254`, `#2262`, `#2247`, `#2261`, `#2250`, `#2197` | Current community direction |
+
+## Target Repo Deep Survey: Python SDK
+Note: Some of the sections are based on research done on 3rd May.
+
+Active workflows surveyed: **35**, excluding archived workflows.
+
+| Workflow | Events Detected | Category | Concurrency |
+|---|---|---|---|
+| bot-advanced-check.yml | issues, workflow_dispatch, label | assignment-onboarding, security | True |
+| bot-assignment-check.yml | issues, label | assignment-onboarding, security | False |
+| bot-beginner-assign-on-comment.yml | issue_comment, issues, pull_request | assignment-onboarding, security | True |
+| bot-coderabbit-plan-trigger.yml | issues, label | pr-review-quality, security | True |
+| bot-gfi-assign-on-comment.yml | issue_comment, issues, pull_request | assignment-onboarding, security | True |
+| bot-gfi-candidate-notification.yaml | issues, label | assignment-onboarding, security | True |
+| bot-inactivity-unassign.yml | issues, schedule, workflow_dispatch | assignment-onboarding, stale-inactivity, security | False |
+| bot-intermediate-assignment.yml | issues, workflow_dispatch, label | assignment-onboarding, security | True |
+| bot-p0-issues-notify-team.yml | issues, label | security | False |
+| clusterfuzzlite.yml | pull_request, push | ci-test-quality, security | True |
+| cron-admin-update-spam-list.yml | issues, schedule, workflow_dispatch | assignment-onboarding, stale-inactivity, security | False |
+| cron-calls-community.yml | issues, schedule, workflow_dispatch | assignment-onboarding, stale-inactivity, ci-test-quality, security | True |
+| cron-calls-office-hours.yml | schedule, workflow_dispatch | assignment-onboarding, stale-inactivity, security | True |
+| cron-enforcer-pr-linked-issue.yml | issues, schedule, workflow_dispatch | assignment-onboarding, pr-review-quality, stale-inactivity, security | False |
+| cron-pr-check-broken-links.yml | issues, schedule, workflow_dispatch, label | assignment-onboarding, pr-review-quality, stale-inactivity, security | True |
+| cron-reminder-issue-no-pr.yml | issues, schedule, workflow_dispatch | assignment-onboarding, stale-inactivity, ci-test-quality, security | False |
+| cron-reminder-pr-inactive.yml | issues, schedule, workflow_dispatch | assignment-onboarding, stale-inactivity, security | False |
+| pr-check-feedback-all.yml | issues, workflow_dispatch, workflow_run | assignment-onboarding, pr-review-quality, ci-test-quality, security | True |
+| pr-check-primary-broken-links.yml | pull_request, push | ci-test-quality, security | True |
+| pr-check-primary-codecov.yml | pull_request, push | ci-test-quality, security | False |
+| pr-check-primary-codeql.yml | pull_request, push, schedule | stale-inactivity, ci-test-quality, security | False |
+| pr-check-primary-test-files.yml | pull_request, push | pr-review-quality, ci-test-quality, security | True |
+| pr-check-secondary-deps-test.yml | pull_request, push, workflow_dispatch | ci-test-quality, security | False |
+| pr-check-secondary-examples.yml | pull_request, push, workflow_dispatch | ci-test-quality, security | False |
+| pr-check-secondary-tck-test.yml | pull_request, push, workflow_dispatch | ci-test-quality, security | True |
+| pr-check-secondary-unit-integration-test.yml | pull_request, push, workflow_dispatch | ci-test-quality, security | True |
+| pre-commit.yml | pull_request, push | pr-review-quality, ci-test-quality, security | False |
+| publish.yml | push | ci-test-quality, release, security | True |
+| release-pr-coderabbit-gate.yml | pull_request | assignment-onboarding, pr-review-quality, ci-test-quality, release, security | True |
+| request-triage-review.yml | issues, pull_request_target, pull_request, label | assignment-onboarding, pr-review-quality, security | True |
+| review-sync.yml | issues, schedule, workflow_dispatch, label | assignment-onboarding, pr-review-quality, stale-inactivity, security | True |
+| sync-issue-labels-add.yml | issues, workflow_run, label | ci-test-quality, security | True |
+| sync-issue-labels-compute.yml | issues, pull_request, label | ci-test-quality, security | True |
+| unassign-on-comment.yml | issue_comment, issues, pull_request | assignment-onboarding, security | True |
+| working-on-comment.yml | issue_comment, issues, workflow_dispatch | assignment-onboarding, security | True |
+
+### Insights
+
+- Assignment/onboarding is broad but fragmented across GFI, beginner, intermediate, advanced, working-on, unassign, assignment limit, spam-list, and candidate notification workflows.
+- bot-gfi-assign-on-comment.yml is still a key current system because it chains assignment, mentor assignment, and CodeRabbit planning.
+- review-sync.yml is important new evidence. It is explicitly phase-based and currently label-sync only, with no comments, assignments, or routing. This aligns well with a safe V2 migration model.
+- Several JavaScript test files exist under .github/scripts/review-sync/tests and .github/scripts/shared/labels.test.js, but the scan did not find a workflow executing those tests. This may be a valid CI hardening follow-up, but must be checked again before filing because the repo is changing quickly.
+- Python's best V2 role is not to be copied as-is. It should provide workflow coverage and real user scenarios, while C++ should inform structure and safety patterns.
+
+## Target Repo Deep Survey: C++ SDK
+
+Active workflows surveyed: **12**.
+
+| Workflow | Events Detected | Category | Concurrency |
+|---|---|---|---|
+| flow-pull-request-checks.yaml | pull_request, workflow_dispatch | ci-test-quality, security | True |
+| on-comment.yaml | issue_comment, issues, pull_request, label | assignment-onboarding, pr-review-quality, security | True |
+| on-pr-close.yaml | issues, pull_request_target, pull_request | assignment-onboarding, security | True |
+| on-pr-review-labels.yaml | issues, workflow_run, label | pr-review-quality, security | False |
+| on-pr-review.yaml | pull_request, pull_request_review | pr-review-quality, security | True |
+| on-pr-update.yaml | pull_request_target, pull_request, label | assignment-onboarding, pr-review-quality, security | True |
+| on-pr.yaml | pull_request_target, pull_request, label | assignment-onboarding, pr-review-quality, security | True |
+| on-schedule-builds.yaml | schedule, workflow_dispatch | stale-inactivity, ci-test-quality | False |
+| on-schedule-inactivity.yaml | issues, push, schedule, workflow_dispatch, label | assignment-onboarding, pr-review-quality, stale-inactivity, ci-test-quality, security | True |
+| zxc-build-library.yaml | pull_request, workflow_dispatch | ci-test-quality, release, security | False |
+| zxc-lint-workflows.yaml | pull_request, workflow_dispatch | ci-test-quality, security | True |
+| zxc-test-bot-scripts.yaml | issues, pull_request, workflow_dispatch | assignment-onboarding, pr-review-quality, ci-test-quality, security | True |
+
+### Insights
+
+- on-comment.yaml is the strongest assignment baseline. It serializes per issue, checks out the default branch, and dispatches slash commands through bot-on-comment.js.
+- Assignment logic is modularized under .github/scripts/commands/assign.js, with helpers under .github/scripts/helpers.
+- zxc-test-bot-scripts.yaml is now a strong testing baseline. It runs helper and bot tests for assign, inactivity, PR open/update/review/merged/close, recommendation, and comments.
+- zxc-lint-workflows.yaml adds actionlint, which is important for V2 because workflow syntax safety is part of maintainability.
+- C++ should be treated as the structural reference for command dispatch, test strategy, helper boundaries, and workflow linting.
+
+## Org-Wide Workflow Surface
+
+| Repository | Workflow Count | Detected Categories |
+|---|---:|---|
+| [hiero-consensus-node](https://github.com/hiero-ledger/hiero-consensus-node) | 64 | ci-quality, release-publish, security, pr-quality-review, contributor-assignment, stale-inactivity |
+| [hiero-sdk-python](https://github.com/hiero-ledger/hiero-sdk-python) | 35 | contributor-assignment, security, pr-quality-review, stale-inactivity, ci-quality, release-publish |
+| [hiero-json-rpc-relay](https://github.com/hiero-ledger/hiero-json-rpc-relay) | 24 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment, stale-inactivity |
+| [solo](https://github.com/hiero-ledger/solo) | 24 | ci-quality, release-publish, security, pr-quality-review, contributor-assignment, stale-inactivity |
+| [hiero-mirror-node](https://github.com/hiero-ledger/hiero-mirror-node) | 17 | pr-quality-review, stale-inactivity, ci-quality, release-publish, security |
+| [hiero-sdk-js](https://github.com/hiero-ledger/hiero-sdk-js) | 14 | stale-inactivity, security, pr-quality-review, ci-quality, release-publish, contributor-assignment |
+| [hiero-sdk-cpp](https://github.com/hiero-ledger/hiero-sdk-cpp) | 12 | pr-quality-review, ci-quality, security, contributor-assignment, stale-inactivity, release-publish |
+| [hiero-block-node](https://github.com/hiero-ledger/hiero-block-node) | 10 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment, stale-inactivity |
+| [hiero-improvement-proposals](https://github.com/hiero-ledger/hiero-improvement-proposals) | 9 | contributor-assignment, pr-quality-review, security, ci-quality, release-publish, stale-inactivity |
+| [hiero-sdk-tck](https://github.com/hiero-ledger/hiero-sdk-tck) | 8 | pr-quality-review, ci-quality, security, stale-inactivity, contributor-assignment |
+| [heka-identity-platform](https://github.com/hiero-ledger/heka-identity-platform) | 7 | pr-quality-review, ci-quality, release-publish, security |
+| [hiero-contracts](https://github.com/hiero-ledger/hiero-contracts) | 7 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment |
+| [hiero-cli](https://github.com/hiero-ledger/hiero-cli) | 6 | ci-quality, release-publish, pr-quality-review, security |
+| [hiero-hederium](https://github.com/hiero-ledger/hiero-hederium) | 6 | contributor-assignment, ci-quality, release-publish, security, pr-quality-review |
+| [hiero-mirror-node-explorer](https://github.com/hiero-ledger/hiero-mirror-node-explorer) | 6 | pr-quality-review, ci-quality, security, release-publish |
+| [hiero-gradle-conventions](https://github.com/hiero-ledger/hiero-gradle-conventions) | 5 | pr-quality-review, ci-quality, release-publish, security |
+| [hiero-local-node](https://github.com/hiero-ledger/hiero-local-node) | 5 | pr-quality-review, security, ci-quality, release-publish |
+| [hiero-did-sdk-js](https://github.com/hiero-ledger/hiero-did-sdk-js) | 4 | ci-quality, release-publish, security, pr-quality-review |
+| [hiero-did-sdk-python](https://github.com/hiero-ledger/hiero-did-sdk-python) | 4 | ci-quality, release-publish, security, pr-quality-review |
+| [hiero-enterprise-java](https://github.com/hiero-ledger/hiero-enterprise-java) | 4 | pr-quality-review, stale-inactivity, ci-quality, release-publish, security, contributor-assignment |
+| [hiero-sdk-java](https://github.com/hiero-ledger/hiero-sdk-java) | 4 | pr-quality-review, ci-quality, release-publish, security |
+| [homebrew-tools](https://github.com/hiero-ledger/homebrew-tools) | 4 | pr-quality-review, ci-quality, release-publish, security, stale-inactivity |
+| [governance](https://github.com/hiero-ledger/governance) | 3 | stale-inactivity, security, pr-quality-review |
+| [hiero-sdk-rust](https://github.com/hiero-ledger/hiero-sdk-rust) | 3 | contributor-assignment, pr-quality-review, security, ci-quality, release-publish |
+| [hiero-website](https://github.com/hiero-ledger/hiero-website) | 2 | pr-quality-review, ci-quality, security |
+| [identity-collaboration-hub](https://github.com/hiero-ledger/identity-collaboration-hub) | 2 | pr-quality-review, ci-quality, release-publish, security |
+| [.github](https://github.com/hiero-ledger/.github) | 1 | stale-inactivity, ci-quality, security |
+| [hiero-consensus-specifications](https://github.com/hiero-ledger/hiero-consensus-specifications) | 1 | pr-quality-review, ci-quality |
+| [hiero-sdk-go](https://github.com/hiero-ledger/hiero-sdk-go) | 1 | pr-quality-review, ci-quality, security |
+| [hiero-sdk-swift](https://github.com/hiero-ledger/hiero-sdk-swift) | 1 | pr-quality-review, ci-quality, release-publish, security |
+| [hiero-solo-action](https://github.com/hiero-ledger/hiero-solo-action) | 1 | pr-quality-review, ci-quality, release-publish, security |
+| [solo-docs](https://github.com/hiero-ledger/solo-docs) | 1 | pr-quality-review, ci-quality, release-publish, security |
+| [tsc](https://github.com/hiero-ledger/tsc) | 1 | pr-quality-review, security |
+
 
 ## 3. Main Research Conclusion
 
