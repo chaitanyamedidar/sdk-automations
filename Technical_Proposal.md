@@ -3,7 +3,7 @@
 Files: [`research.md`](./Research.md) , [`Prototype.md`](./README.md)
 ## 1. Core Idea
 
-I am proposing a reusable GitHub workflow automation system for Hiero maintainers and contributors. My goal is not to create another isolated bot or replace all workflows at once. My goal is to migrate the useful behavior already present in Python and C++ SDK automation into a safer, reusable, configurable V2 architecture.
+I am proposing a reusable GitHub workflow automation system for Hiero maintainers and contributors. My goal is to migrate the useful behavior already present in Python and C++ SDK automation into a safer, reusable, configurable V2 architecture.
 
 I would use a hybrid model:
 
@@ -27,7 +27,7 @@ Contributor finds issue
 
 I am keeping the first scope intentionally small: I would start from the existing SDK workflows, reuse the stronger C++ structure where it fits, and avoid prioritizing new features before the current maintainer and contributor workflow system is understood and migrated safely.
 
-Detailed workflow research, PR references, and repository survey notes are kept separately in [`research.md`](./research.md).
+Detailed workflow research and repository survey notes are kept separately in [`research.md`](./research.md).
 
 ## 2. Bottleneck
 
@@ -315,131 +315,6 @@ Important rule: output adapters should be separate from policy logic.
 ## 8. Proposed Application File Structure
 
 The V2 application should make the architecture visible in the repository layout. The file structure should separate app infrastructure, shared policy logic, workflow modules, output adapters, config schema, tests, and documentation.
-
-```text
-hiero-workflow-app/
-  package.json
-  tsconfig.json
-  README.md
-
-  src/
-    app/
-      server.ts
-      github-app.ts
-      webhook-receiver.ts
-      signature-verifier.ts
-
-    core/
-      event-normalizer.ts
-      config-loader.ts
-      policy-router.ts
-      module-registry.ts
-      current-state-fetcher.ts
-      decision-engine.ts
-      permission-guard.ts
-      mode-controller.ts
-      audit-logger.ts
-      error-handler.ts
-
-    modules/
-      assignment/
-        assignment.module.ts
-        assignment-policy.ts
-        assignment-types.ts
-        assignment-messages.ts
-        assignment.fixtures.ts
-
-      onboarding/
-        onboarding.module.ts
-        docs-link-resolver.ts
-        mentor-hook.ts
-        planner-hook.ts
-
-      review-queue/
-        review-queue.module.ts
-        review-state.ts
-        reviewer-permissions.ts
-        queue-label-policy.ts
-
-      pr-quality/
-        pr-quality.module.ts
-        check-run-reader.ts
-        linked-issue-policy.ts
-        template-policy.ts
-
-      inactivity/
-        inactivity.module.ts
-        stale-assignment-policy.ts
-        stale-pr-policy.ts
-        escalation-policy.ts
-
-      post-merge/
-        post-merge.module.ts
-        next-issue-recommendation.ts
-        progression-evidence.ts
-
-      advisory-ai/
-        advisory-summary.module.ts
-        evidence-summarizer.ts
-        ai-safety-policy.ts
-
-    adapters/
-      github-write-adapter.ts
-      check-summary-adapter.ts
-      updatable-comment-adapter.ts
-      workflow-log-adapter.ts
-      audit-artifact-adapter.ts
-      notification-digest-adapter.ts
-
-    config/
-      schema.ts
-      defaults.ts
-      profiles/
-        sdk-contributor-heavy.ts
-        sdk-medium.ts
-        ci-heavy-readonly.ts
-        docs-governance.ts
-
-    types/
-      github-events.ts
-      module-contract.ts
-      decisions.ts
-      audit.ts
-
-  configs/
-    examples/
-      hiero-sdk-python.yml
-      hiero-sdk-cpp.yml
-      ci-heavy-readonly.yml
-      docs-governance.yml
-
-  tests/
-    unit/
-      assignment-policy.test.ts
-      permission-guard.test.ts
-      review-queue.test.ts
-
-    fixtures/
-      python/
-        issue-comment-assign-gfi.json
-        review-sync-open-pr.json
-      cpp/
-        on-comment-assign.json
-        on-pr-close-merged.json
-
-    integration/
-      dry-run-assignment.test.ts
-      comment-only-review-queue.test.ts
-      mode-boundary.test.ts
-
-  docs/
-    architecture.md
-    module-contract.md
-    repository-config.md
-    migration-guide.md
-    maintainer-onboarding.md
-    contributor-workflow.md
-```
 
 ### File Structure Rationale
 
