@@ -1,6 +1,6 @@
 # Hiero GitHub Workflow App - Technical Design Document
 
-Files: [`research.md`](./Research.md) , [`Prototype.md`](./README.md)
+Files: [`Research.md`](./Research.md) , [`Prototype.md`](./README.md)
 ## 1. Core Idea
 
 I am proposing a reusable GitHub workflow automation system for Hiero maintainers and contributors. My goal is to migrate the useful behavior already present in Python and C++ SDK automation into a safer, reusable, configurable V2 architecture.
@@ -521,8 +521,22 @@ V2 should not attempt these first:
 - making contributor progression automatic
 - applying write-enabled automation across all Hiero repos
 - rewriting CI pipelines unrelated to maintainer or contributor workflow automation
+- 
+## 19. Optional Future Scope: Notification Bot
 
-## 19. Success Criteria
+A Discord or Slack bot can be added later as an output adapter after the core GitHub App workflow is stable. I would not include it in the first implementation because the core challenge is workflow migration, policy safety, auditability, and repository-specific configuration.
+
+| Future Capability | Scope Boundary |
+|---|---|
+| Assignment notifications | Announce who was assigned, blocked, or needs maintainer review based on GitHub App decisions. |
+| Review queue digest | Summarize PRs waiting on community review, committer review, maintainer review, or author changes. |
+| Inactivity reminders | Notify configured maintainer or contributor channels when stale work needs attention. |
+| Maintainer escalation | Send a digest when labels or rules indicate a team needs to review something. |
+| Advisory AI summary | Summarize structured evidence only, never make assignment, review, or progression decisions. |
+
+This keeps Discord or Slack useful without making it part of the decision path. The GitHub App remains the source of truth for policy evaluation, permission checks, audit logs, and outputs.
+
+## 20. Success Criteria
 
 I would consider the mentorship deliverable successful if it produces:
 
@@ -536,6 +550,6 @@ I would consider the mentorship deliverable successful if it produces:
 - documented rollout path from Python and C++ to other repositories
 - clear maintainer override behavior
 
-## 20. Final Technical Thesis
+## 21. Final Technical Thesis
 
 My technical thesis is that the Hiero GitHub Workflow App should be a V2 migration system for the existing maintainer and contributor workflow lifecycle, not a new feature collection. I would cover contributor onboarding, assignment eligibility, review queue visibility, stale workflow handling, post-merge recommendations, and maintainer-facing progression evidence. Python provides the real-world workflow catalogue. C++ provides the cleaner structural baseline. The GitHub App centralizes policy, config, auditability, and safety. GitHub Actions remain the execution layer. Repositories adopt modules gradually through config, starting in dry-run mode and moving to write-enabled behavior only after maintainer review.
