@@ -29,7 +29,7 @@ I am keeping the first scope intentionally small: I would start from the existin
 
 Detailed workflow research, PR references, and repository survey notes are kept separately in [`research.md`](./research.md).
 
-## 2. Problem Statement
+## 2. Bottleneck
 
 Hiero already has useful workflow automation, but the current system is spread across many repository-specific GitHub Actions, scripts, labels, and cron workflows. Python has broad coverage but more fragmentation. C++ has cleaner structure but narrower coverage. Other Hiero repositories vary widely in workflow count and maintenance needs.
 
@@ -57,6 +57,12 @@ This creates several problems:
 ## 4. Overall Architecture
 
 The V2 system is a hybrid GitHub App plus GitHub Actions architecture.
+
+<img width="2048" height="1143" alt="1" src="https://github.com/user-attachments/assets/918cfcd7-4340-4cec-bab2-8ebe5badde62" />
+
+
+
+The diagram should communicate that V2 centralizes policy and auditability while preserving GitHub Actions as the repo-local execution layer.
 
 ```text
 GitHub webhook event
@@ -89,19 +95,13 @@ GitHub webhook event
 | GitHub App | safe write authorization |
 | GitHub App | future dashboard/reporting data |
 
-<img width="2048" height="1143" alt="1" src="https://github.com/user-attachments/assets/918cfcd7-4340-4cec-bab2-8ebe5badde62" />
-
-
-
-The diagram should communicate that V2 centralizes policy and auditability while preserving GitHub Actions as the repo-local execution layer.
 
 
 ## 6. Existing Workflow Migration 
 <img width="2048" height="1143" alt="release workflows" src="https://github.com/user-attachments/assets/4a6c0c36-36d6-4f45-8e4f-b23ffe9caf47" />
 
 
-
-Caption: The diagram should make clear that V2 extracts and standardizes existing Hiero workflow behavior before introducing reusable modules.
+V2 extracts and standardizes existing Hiero workflow behavior before introducing reusable modules.
 
 ## 7. Component Breakdown
 
@@ -461,7 +461,7 @@ This structure supports both contributor-facing workflows, such as onboarding an
 <img width="2048" height="1143" alt="2" src="https://github.com/user-attachments/assets/0a0b5bd2-bef8-4f1b-a1f4-d59f0ce9f304" />
 
 
-Caption: The diagram should make clear that each component has a narrow responsibility and that write actions pass through a safety boundary.
+Each component has a narrow responsibility and that write actions pass through a safety boundary.
 
 ## 10. End-To-End Working Application
 
@@ -487,8 +487,7 @@ The first working application should focus on assignment and contributor onboard
 
 <img width="2048" height="1143" alt="5" src="https://github.com/user-attachments/assets/cd9abbe8-a1c2-4021-930a-7bfbaadc36e0" />
 
-
-Caption: The diagram should show that the first deliverable is a safe, testable assignment workflow, not a broad replacement of every existing workflow.
+The first deliverable is a safe, testable assignment workflow, not a broad replacement of every existing workflow.
 
 ## 12. Phased Implementation Plan
 
@@ -532,7 +531,7 @@ I would not roll V2 out uniformly to every repository. Each repository should ad
 <img width="2048" height="1143" alt="4" src="https://github.com/user-attachments/assets/acf85340-a895-4cd1-aa0b-15e9d2a0c7f6" />
 
 
-Caption: The diagram should show that the architecture scales through configuration, not through duplicated workflow files.
+The architecture scales through configuration, not through duplicated workflow files.
 
 ## 15. Testing And CI Strategy
 
