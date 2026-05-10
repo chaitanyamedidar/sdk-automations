@@ -1,6 +1,6 @@
 # Hiero GitHub Workflow App - Technical Design Document
 
-Files: [`research.md`](./Research.md) , [`Prototype.md`](./Prototype.md)
+Files: [`research.md`](./Research.md) , [`Prototype.md`](./Readme.md)
 ## 1. Core Idea
 
 I am proposing a reusable GitHub workflow automation system for Hiero maintainers and contributors. My goal is not to create another isolated bot or replace all workflows at once. My goal is to migrate the useful behavior already present in Python and C++ SDK automation into a safer, reusable, configurable V2 architecture.
