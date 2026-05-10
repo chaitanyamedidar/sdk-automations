@@ -6,13 +6,13 @@ I did a research to understand how Hiero currently handles contributor and maint
 
 ## 2. Sources Reviewed
 
-| Source | What Was Reviewed | Why It Matters |
+| Source | What Was Reviewed | Importance |
 |---|---|---|
 | `hiero-sdk-python` workflows | Assignment bots, review-sync, triage review, inactivity, planner hooks, CI workflows | Python has broad real-world workflow coverage |
 | `hiero-sdk-cpp` workflows | Comment dispatcher, helper modules, bot tests, workflow linting, post-merge automation | C++ has cleaner workflow structure |
 | `hiero-ledger` org workflow inventory | Workflow files across selected repositories | Shows scaling targets and repository tiers |
 | Python workflow PRs and issues | `#2229`, `#2242`, `#2254`, `#2262`, `#2247`, `#2261`, `#2250`, `#2197` | Shows current community direction |
-| Mentor Discord guidance | Start small, abstract existing SDK workflows, use GitHub Actions for execution and GitHub App for orchestration/policy | Defines proposal constraints |
+| Maintainer Discord guidance | Start small, abstract existing SDK workflows, use GitHub Actions for execution and GitHub App for orchestration/policy | Defines proposal constraints |
 
 ## 3. Main Research Conclusion
 
@@ -31,7 +31,7 @@ I did a research to understand how Hiero currently handles contributor and maint
 | Good First Issue assignment | `/assign` based assignment logic and eligibility checks | Reusable Assignment and Eligibility module |
 | Beginner and higher difficulty assignment | label-driven progression and prerequisite expectations | Configurable difficulty policy |
 | Assignment guard | separate checks to prevent unsafe assignment | Shared current-state and permission checks |
-| Mentor/planner hooks | assignment can trigger mentor or planning support | Optional onboarding hook |
+| Maintainer/planner hooks | assignment can trigger Maintainer or planning support | Optional onboarding hook |
 | Review queue sync | label sync based on review state and permissions | Review Queue module with dry-run and report modes |
 | Triage review request | workflow comments for review routing | PR Quality and Review Status module |
 | Inactivity handling | reminders and unassignment flows | Inactivity Management module |
@@ -58,7 +58,7 @@ I did a research to understand how Hiero currently handles contributor and maint
 | `/assign` comment handling | Assignment and Eligibility | dry-run |
 | Contributor eligibility checks | Assignment Policy | dry-run |
 | First-time contributor guidance | Contributor Onboarding | comment-only |
-| Mentor or planner trigger | Onboarding Hook or Planner Hook | optional comment-only |
+| Maintainer or planner trigger | Onboarding Hook or Planner Hook | optional comment-only |
 | Review queue label sync | Review Queue | dry-run to comment-only |
 | PR review status report | PR Quality Summary | read-only |
 | Inactivity reminders | Inactivity Management | comment-only |
@@ -69,7 +69,7 @@ I did a research to understand how Hiero currently handles contributor and maint
 
 ## 7. Edge Cases Found Or Inferred
 
-| Edge Case | Why It Matters | V2 Handling |
+| Edge Case | Importance | V2 Handling |
 |---|---|---|
 | Stale webhook payload | A queued workflow may act on old issue state | Refetch current issue or PR before final write |
 | Permission mismatch | Recent review-sync work needed permission correction | Declare module permission profiles |
