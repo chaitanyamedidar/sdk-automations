@@ -1,6 +1,6 @@
 # Research Notes - Hiero GitHub Workflow App
 
-## 2. Sources Reviewed
+## 1. Sources Reviewed
 
 | Source | What Was Reviewed | Importance |
 |---|---|---|
@@ -8,6 +8,45 @@
 | `hiero-sdk-cpp` workflows | Comment dispatcher, helper modules, bot tests, workflow linting, post-merge automation | C++ has cleaner workflow structure |
 | `hiero-ledger` org workflow inventory | Workflow files across selected repositories | Shows scaling targets and repository tiers |
 | Python workflow PRs and issues | `#2229`, `#2242`, `#2254`, `#2262`, `#2247`, `#2261`, `#2250`, `#2197` | Current community direction |
+
+
+## Org-Wide Workflow Surface
+
+| Repository | Workflow Count | Detected Categories |
+|---|---:|---|
+| [hiero-consensus-node](https://github.com/hiero-ledger/hiero-consensus-node) | 64 | ci-quality, release-publish, security, pr-quality-review, contributor-assignment, stale-inactivity |
+| [hiero-sdk-python](https://github.com/hiero-ledger/hiero-sdk-python) | 35 | contributor-assignment, security, pr-quality-review, stale-inactivity, ci-quality, release-publish |
+| [hiero-json-rpc-relay](https://github.com/hiero-ledger/hiero-json-rpc-relay) | 24 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment, stale-inactivity |
+| [solo](https://github.com/hiero-ledger/solo) | 24 | ci-quality, release-publish, security, pr-quality-review, contributor-assignment, stale-inactivity |
+| [hiero-mirror-node](https://github.com/hiero-ledger/hiero-mirror-node) | 17 | pr-quality-review, stale-inactivity, ci-quality, release-publish, security |
+| [hiero-sdk-js](https://github.com/hiero-ledger/hiero-sdk-js) | 14 | stale-inactivity, security, pr-quality-review, ci-quality, release-publish, contributor-assignment |
+| [hiero-sdk-cpp](https://github.com/hiero-ledger/hiero-sdk-cpp) | 12 | pr-quality-review, ci-quality, security, contributor-assignment, stale-inactivity, release-publish |
+| [hiero-block-node](https://github.com/hiero-ledger/hiero-block-node) | 10 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment, stale-inactivity |
+| [hiero-improvement-proposals](https://github.com/hiero-ledger/hiero-improvement-proposals) | 9 | contributor-assignment, pr-quality-review, security, ci-quality, release-publish, stale-inactivity |
+| [hiero-sdk-tck](https://github.com/hiero-ledger/hiero-sdk-tck) | 8 | pr-quality-review, ci-quality, security, stale-inactivity, contributor-assignment |
+| [heka-identity-platform](https://github.com/hiero-ledger/heka-identity-platform) | 7 | pr-quality-review, ci-quality, release-publish, security |
+| [hiero-contracts](https://github.com/hiero-ledger/hiero-contracts) | 7 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment |
+| [hiero-cli](https://github.com/hiero-ledger/hiero-cli) | 6 | ci-quality, release-publish, pr-quality-review, security |
+| [hiero-hederium](https://github.com/hiero-ledger/hiero-hederium) | 6 | contributor-assignment, ci-quality, release-publish, security, pr-quality-review |
+| [hiero-mirror-node-explorer](https://github.com/hiero-ledger/hiero-mirror-node-explorer) | 6 | pr-quality-review, ci-quality, security, release-publish |
+| [hiero-gradle-conventions](https://github.com/hiero-ledger/hiero-gradle-conventions) | 5 | pr-quality-review, ci-quality, release-publish, security |
+| [hiero-local-node](https://github.com/hiero-ledger/hiero-local-node) | 5 | pr-quality-review, security, ci-quality, release-publish |
+| [hiero-did-sdk-js](https://github.com/hiero-ledger/hiero-did-sdk-js) | 4 | ci-quality, release-publish, security, pr-quality-review |
+| [hiero-did-sdk-python](https://github.com/hiero-ledger/hiero-did-sdk-python) | 4 | ci-quality, release-publish, security, pr-quality-review |
+| [hiero-enterprise-java](https://github.com/hiero-ledger/hiero-enterprise-java) | 4 | pr-quality-review, stale-inactivity, ci-quality, release-publish, security, contributor-assignment |
+| [hiero-sdk-java](https://github.com/hiero-ledger/hiero-sdk-java) | 4 | pr-quality-review, ci-quality, release-publish, security |
+| [homebrew-tools](https://github.com/hiero-ledger/homebrew-tools) | 4 | pr-quality-review, ci-quality, release-publish, security, stale-inactivity |
+| [governance](https://github.com/hiero-ledger/governance) | 3 | stale-inactivity, security, pr-quality-review |
+| [hiero-sdk-rust](https://github.com/hiero-ledger/hiero-sdk-rust) | 3 | contributor-assignment, pr-quality-review, security, ci-quality, release-publish |
+| [hiero-website](https://github.com/hiero-ledger/hiero-website) | 2 | pr-quality-review, ci-quality, security |
+| [identity-collaboration-hub](https://github.com/hiero-ledger/identity-collaboration-hub) | 2 | pr-quality-review, ci-quality, release-publish, security |
+| [.github](https://github.com/hiero-ledger/.github) | 1 | stale-inactivity, ci-quality, security |
+| [hiero-consensus-specifications](https://github.com/hiero-ledger/hiero-consensus-specifications) | 1 | pr-quality-review, ci-quality |
+| [hiero-sdk-go](https://github.com/hiero-ledger/hiero-sdk-go) | 1 | pr-quality-review, ci-quality, security |
+| [hiero-sdk-swift](https://github.com/hiero-ledger/hiero-sdk-swift) | 1 | pr-quality-review, ci-quality, release-publish, security |
+| [hiero-solo-action](https://github.com/hiero-ledger/hiero-solo-action) | 1 | pr-quality-review, ci-quality, release-publish, security |
+| [solo-docs](https://github.com/hiero-ledger/solo-docs) | 1 | pr-quality-review, ci-quality, release-publish, security |
+| [tsc](https://github.com/hiero-ledger/tsc) | 1 | pr-quality-review, security |
 
 ## Target Repo Deep Survey: Python SDK
 Note: Some of the sections are based on research done on 3rd May.
@@ -87,46 +126,7 @@ Active workflows surveyed: **12**.
 - zxc-lint-workflows.yaml adds actionlint, which is important for V2 because workflow syntax safety is part of maintainability.
 - C++ should be treated as the structural reference for command dispatch, test strategy, helper boundaries, and workflow linting.
 
-## Org-Wide Workflow Surface
-
-| Repository | Workflow Count | Detected Categories |
-|---|---:|---|
-| [hiero-consensus-node](https://github.com/hiero-ledger/hiero-consensus-node) | 64 | ci-quality, release-publish, security, pr-quality-review, contributor-assignment, stale-inactivity |
-| [hiero-sdk-python](https://github.com/hiero-ledger/hiero-sdk-python) | 35 | contributor-assignment, security, pr-quality-review, stale-inactivity, ci-quality, release-publish |
-| [hiero-json-rpc-relay](https://github.com/hiero-ledger/hiero-json-rpc-relay) | 24 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment, stale-inactivity |
-| [solo](https://github.com/hiero-ledger/solo) | 24 | ci-quality, release-publish, security, pr-quality-review, contributor-assignment, stale-inactivity |
-| [hiero-mirror-node](https://github.com/hiero-ledger/hiero-mirror-node) | 17 | pr-quality-review, stale-inactivity, ci-quality, release-publish, security |
-| [hiero-sdk-js](https://github.com/hiero-ledger/hiero-sdk-js) | 14 | stale-inactivity, security, pr-quality-review, ci-quality, release-publish, contributor-assignment |
-| [hiero-sdk-cpp](https://github.com/hiero-ledger/hiero-sdk-cpp) | 12 | pr-quality-review, ci-quality, security, contributor-assignment, stale-inactivity, release-publish |
-| [hiero-block-node](https://github.com/hiero-ledger/hiero-block-node) | 10 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment, stale-inactivity |
-| [hiero-improvement-proposals](https://github.com/hiero-ledger/hiero-improvement-proposals) | 9 | contributor-assignment, pr-quality-review, security, ci-quality, release-publish, stale-inactivity |
-| [hiero-sdk-tck](https://github.com/hiero-ledger/hiero-sdk-tck) | 8 | pr-quality-review, ci-quality, security, stale-inactivity, contributor-assignment |
-| [heka-identity-platform](https://github.com/hiero-ledger/heka-identity-platform) | 7 | pr-quality-review, ci-quality, release-publish, security |
-| [hiero-contracts](https://github.com/hiero-ledger/hiero-contracts) | 7 | pr-quality-review, ci-quality, release-publish, security, contributor-assignment |
-| [hiero-cli](https://github.com/hiero-ledger/hiero-cli) | 6 | ci-quality, release-publish, pr-quality-review, security |
-| [hiero-hederium](https://github.com/hiero-ledger/hiero-hederium) | 6 | contributor-assignment, ci-quality, release-publish, security, pr-quality-review |
-| [hiero-mirror-node-explorer](https://github.com/hiero-ledger/hiero-mirror-node-explorer) | 6 | pr-quality-review, ci-quality, security, release-publish |
-| [hiero-gradle-conventions](https://github.com/hiero-ledger/hiero-gradle-conventions) | 5 | pr-quality-review, ci-quality, release-publish, security |
-| [hiero-local-node](https://github.com/hiero-ledger/hiero-local-node) | 5 | pr-quality-review, security, ci-quality, release-publish |
-| [hiero-did-sdk-js](https://github.com/hiero-ledger/hiero-did-sdk-js) | 4 | ci-quality, release-publish, security, pr-quality-review |
-| [hiero-did-sdk-python](https://github.com/hiero-ledger/hiero-did-sdk-python) | 4 | ci-quality, release-publish, security, pr-quality-review |
-| [hiero-enterprise-java](https://github.com/hiero-ledger/hiero-enterprise-java) | 4 | pr-quality-review, stale-inactivity, ci-quality, release-publish, security, contributor-assignment |
-| [hiero-sdk-java](https://github.com/hiero-ledger/hiero-sdk-java) | 4 | pr-quality-review, ci-quality, release-publish, security |
-| [homebrew-tools](https://github.com/hiero-ledger/homebrew-tools) | 4 | pr-quality-review, ci-quality, release-publish, security, stale-inactivity |
-| [governance](https://github.com/hiero-ledger/governance) | 3 | stale-inactivity, security, pr-quality-review |
-| [hiero-sdk-rust](https://github.com/hiero-ledger/hiero-sdk-rust) | 3 | contributor-assignment, pr-quality-review, security, ci-quality, release-publish |
-| [hiero-website](https://github.com/hiero-ledger/hiero-website) | 2 | pr-quality-review, ci-quality, security |
-| [identity-collaboration-hub](https://github.com/hiero-ledger/identity-collaboration-hub) | 2 | pr-quality-review, ci-quality, release-publish, security |
-| [.github](https://github.com/hiero-ledger/.github) | 1 | stale-inactivity, ci-quality, security |
-| [hiero-consensus-specifications](https://github.com/hiero-ledger/hiero-consensus-specifications) | 1 | pr-quality-review, ci-quality |
-| [hiero-sdk-go](https://github.com/hiero-ledger/hiero-sdk-go) | 1 | pr-quality-review, ci-quality, security |
-| [hiero-sdk-swift](https://github.com/hiero-ledger/hiero-sdk-swift) | 1 | pr-quality-review, ci-quality, release-publish, security |
-| [hiero-solo-action](https://github.com/hiero-ledger/hiero-solo-action) | 1 | pr-quality-review, ci-quality, release-publish, security |
-| [solo-docs](https://github.com/hiero-ledger/solo-docs) | 1 | pr-quality-review, ci-quality, release-publish, security |
-| [tsc](https://github.com/hiero-ledger/tsc) | 1 | pr-quality-review, security |
-
-
-## 3. Main Research Conclusion
+## 2. Main Research Conclusion
 
 | Observation | Design Conclusion |
 |---|---|
@@ -136,7 +136,7 @@ Active workflows surveyed: **12**.
 | Permission failures and workflow syntax issues have occurred in recent work | V2 must include permission profiles, config validation, and workflow linting |
 | Review queue automation is actively evolving | V2 should not duplicate blindly, but provide a migration path and reusable structure |
 
-## 4. Python SDK Findings
+## 3. Python SDK Findings
 
 | Workflow Area | Existing Pattern | V2 Migration Opportunity |
 |---|---|---|
@@ -150,7 +150,7 @@ Active workflows surveyed: **12**.
 | Label centralization | shared label files introduced in recent work | Config schema and shared constants |
 | CI and quality workflows | CodeQL, test, pre-commit, fuzzing, release, broken link checks | Keep as GitHub Actions execution layer |
 
-## 5. C++ SDK Findings
+## 4. C++ SDK Findings
 
 | Workflow Area | Existing Pattern | V2 Migration Opportunity |
 |---|---|---|
@@ -163,7 +163,7 @@ Active workflows surveyed: **12**.
 | Post-merge automation | status cleanup and milestone handling | Inform Post-Merge Recommendation module |
 
 
-## 6. Migration Mapping
+## 5. Migration Mapping
 
 | Existing Workflow Behavior | V2 Module | Initial Mode |
 |---|---|---|
@@ -179,7 +179,7 @@ Active workflows surveyed: **12**.
 | Next issue recommendation | Post-Merge Recommendation | advisory |
 | Contributor progression evidence | Progression Evidence | advisory |
 
-## 7. Edge Cases Found Or Inferred
+## 6. Edge Cases Found Or Inferred
 
 | Edge Case | Importance | V2 Handling |
 |---|---|---|
@@ -195,7 +195,7 @@ Active workflows surveyed: **12**.
 | Inactive assignment | Issues can remain blocked by stale assignment | Reminder, grace period, then configurable unassignment |
 | AI overreach | AI could bias assignment or progression | AI is advisory only and cannot authorize writes |
 
-## 8. Repository Adoption Tiers
+## 7. Repository Adoption Tiers
 
 | Tier | Repositories | Research Rationale |
 |---|---|---|
