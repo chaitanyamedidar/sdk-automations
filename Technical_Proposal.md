@@ -248,7 +248,43 @@ Defines the available modules and their requirements.
 | Progression Evidence | merged PRs, reviews, labels, role thresholds | maintainer-facing evidence card | read-only or comment-only |
 | Advisory AI Summary | structured evidence only | short explanation | no write decisions |
 
-### 7.6 Current-State Fetcher
+### 7.6 Decision Engine
+
+The Decision Engine is a V2 abstraction, not a single component that currently exists in the repositories. Today, decision logic is spread across workflow scripts: assignment checks, label checks, inactivity checks, review queue logic, and post-merge automation. In V2, I would centralize that scattered rule evaluation into a shared decision layer used by each module.
+
+The Decision Engine does not perform GitHub writes and does not use AI for final decisions. Its job is to evaluate normalized inputs and return a clear, auditable decision.
+
+| Input | Purpose |
+|---|---|
+| normalized event | tells the engine what happened, such as `/assign`, PR opened, review submitted, or schedule run |
+| repository config | provides repo-specific labels, thresholds, enabled modules, modes, and permissions |
+| current GitHub state | prevents decisions from relying only on stale webhook payloads |
+| module policy | defines the rules for assignment, review queue, stale handling, or progression evidence |
+| contributor or PR history | supports eligibility, recommendation, and progression evidence |
+
+| Output | Example |
+|---|---|
+| decision | `would_assign`, `blocked_already_assigned`, `needs_maintainer_review`, `no_action` |
+| reason | `issue already has an assignee in fresh GitHub state` |
+| planned actions | `add_assignee`, `post_comment`, `emit_check_summary` |
+| required permissions | `issues: write`, `pull-requests: read` |
+| audit metadata | matched rule, actor, target, mode, timestamp |
+
+Example decision:
+
+```json
+{
+  "module": "assignment",
+  "mode": "dry-run",
+  "decision": "would_assign",
+  "reason": "issue is open, unassigned, has allowed difficulty label, and contributor is below assignment limit",
+  "planned_actions": ["add_assignee", "post_onboarding_comment"],
+  "required_permissions": ["issues: write"],
+  "fresh_state_used": true
+}
+```
+
+### 7.7 Current-State Fetcher
 
 Fetches fresh GitHub state before write decisions.
 
@@ -259,7 +295,7 @@ This preserves the C++ safety pattern:
 - fail closed when fresh state cannot be fetched
 - revalidate labels and assignees before assignment
 
-### 7.7 Permission Guard
+### 7.8 Permission Guard
 
 Checks whether a module is allowed to perform a planned action.
 
@@ -278,7 +314,7 @@ required_permission = issues: write
 decision = allow only if repo config enabled module and app installation has permission
 ```
 
-### 7.8 Audit Logger
+### 7.9 Audit Logger
 
 Every decision produces an audit record:
 
@@ -297,7 +333,7 @@ Every decision produces an audit record:
 }
 ```
 
-### 7.9 Output Adapters
+### 7.10 Output Adapters
 
 Adapters convert module decisions into human-readable output.
 
