@@ -62,7 +62,7 @@ The V2 system is a hybrid GitHub App plus GitHub Actions architecture.
 
 
 
-The diagram should communicate that V2 centralizes policy and auditability while preserving GitHub Actions as the repo-local execution layer.
+V2 centralizes policy and auditability while preserving GitHub Actions as the repo-local execution layer.
 
 ```text
 GitHub webhook event
